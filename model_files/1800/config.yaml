@@ -1,0 +1,11 @@
+%YAML 1.2
+---
+name: final_maia_1800
+display_name: Final Maia 1800
+engine: lc0_23
+options:
+    nodes: 1
+    weightsPath: final_1800-40.pb.gz
+    movetime: 10
+    threads: 8
+...

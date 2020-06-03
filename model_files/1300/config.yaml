@@ -1,0 +1,11 @@
+%YAML 1.2
+---
+name: final_maia_1300
+display_name: Final Maia 1300
+engine: lc0_23
+options:
+    nodes: 1
+    weightsPath: final_1300-40.pb.gz
+    movetime: 10
+    threads: 8
+...
