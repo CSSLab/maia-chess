@@ -1,12 +1,14 @@
 # Aligning Superhuman AI and Human Behavior: Chess as a Model System
 
+## [paper](https://arxiv.org/abs/2006.01855)/[code](https://github.com/CSSLab/maia-chess)
+
 We are currently working on the full release of code, data and models (and our followup paper). The work will be presented at KDD '20 and the preprint is on arXiv.
 
 You can play against three of of our models on Lichess right now:
 
-+ [maia1](https://lichess.org/@/maia1) is targeting ELO 1100
-+ [maia5](https://lichess.org/@/maia5) is targeting ELO 1500
-+ [maia9](https://lichess.org/@/maia9) is targeting ELO 1900
++ [_maia1_](https://lichess.org/@/maia1) is targeting ELO 1100
++ [_maia5_](https://lichess.org/@/maia5) is targeting ELO 1500
++ [_maia9_](https://lichess.org/@/maia9) is targeting ELO 1900
 
 ## Model Files
 
