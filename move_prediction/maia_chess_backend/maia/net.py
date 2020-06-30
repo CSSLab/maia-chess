@@ -4,7 +4,8 @@ import argparse
 import gzip
 import os
 import numpy as np
-from .proto.net_pb2 import Net, NetworkFormat, Format
+from .proto.net_pb2 import NetworkFormat, Format
+from .proto.net_pb2 import Net as Net_pb
 
 LC0_MAJOR = 0
 LC0_MINOR = 21
@@ -24,7 +25,7 @@ class Net:
         if net == NetworkFormat.NETWORK_CLASSICAL:
             net = NetworkFormat.NETWORK_CLASSICAL_WITH_HEADFORMAT
 
-        self.pb = Net()
+        self.pb = Net_pb()
         self.pb.magic = WEIGHTS_MAGIC
         self.pb.min_version.major = LC0_MAJOR
         self.pb.min_version.minor = LC0_MINOR
