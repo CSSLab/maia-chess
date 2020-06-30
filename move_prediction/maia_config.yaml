@@ -3,8 +3,8 @@
 gpu: 0
 
 dataset:
-  input_train: '/finaldata/elo_ranges/1900/train/*/*'
-  input_test: '/finaldata/elo_ranges/1900/test/*/*'
+  input_train: 'PATH_TO_TRAINING_FILES' # This uses glob so training/*/* is probably the end
+  input_test: 'PATH_TO_VAL_FILES' # This uses glob so validate/*/* is probably the end
 
 training:
     precision: 'half'
