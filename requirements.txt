@@ -1,0 +1,8 @@
+numpy
+python-chess
+pytz
+humanize
+tensorboard
+tensorflow
+protobuf
+tensorboardx
