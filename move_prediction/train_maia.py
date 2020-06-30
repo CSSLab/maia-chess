@@ -100,9 +100,11 @@ def get_latest_chunks(path):
         maia_chess_backend.printWithDate(f"found {len(chunks)} chunks", end = '\r')
         chunks += glob.glob(os.path.join(d, '*.gz'))
     maia_chess_backend.printWithDate(f"found {len(chunks)} chunks total")
-    if len(chunks) < 1000:
+    if len(chunks) < 10:
         print("Not enough chunks {}".format(len(chunks)))
         sys.exit(1)
+    if len(chunks) < 1000:
+        print("There are not very many chunks so results may be unstable")
 
     print("sorting {} chunks...".format(len(chunks)), end='')
     chunks.sort(key=os.path.getmtime, reverse=True)
