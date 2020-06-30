@@ -23,7 +23,7 @@ import tensorflow as tf
 import time
 import bisect
 from .lc0_az_policy_map import make_map
-import proto.net_pb2 as pb
+from .proto.net_pb2 import NetworkFormat
 
 from .net import Net
 
@@ -85,9 +85,9 @@ class TFProcess:
         self.VALUE_HEAD = None
 
         if policy_head == "classical":
-            self.POLICY_HEAD = pb.NetworkFormat.POLICY_CLASSICAL
+            self.POLICY_HEAD = NetworkFormat.POLICY_CLASSICAL
         elif policy_head == "convolution":
-            self.POLICY_HEAD = pb.NetworkFormat.POLICY_CONVOLUTION
+            self.POLICY_HEAD = NetworkFormat.POLICY_CONVOLUTION
         else:
             raise ValueError(
                 "Unknown policy head format: {}".format(policy_head))
@@ -95,10 +95,10 @@ class TFProcess:
         self.net.set_policyformat(self.POLICY_HEAD)
 
         if value_head == "classical":
-            self.VALUE_HEAD = pb.NetworkFormat.VALUE_CLASSICAL
+            self.VALUE_HEAD = NetworkFormat.VALUE_CLASSICAL
             self.wdl = False
         elif value_head == "wdl":
-            self.VALUE_HEAD = pb.NetworkFormat.VALUE_WDL
+            self.VALUE_HEAD = NetworkFormat.VALUE_WDL
             self.wdl = True
         else:
             raise ValueError(
@@ -728,11 +728,11 @@ class TFProcess:
         for _ in range(0, self.RESIDUAL_BLOCKS):
             flow = self.residual_block_v2(flow, self.RESIDUAL_FILTERS)
         # Policy head
-        if self.POLICY_HEAD == pb.NetworkFormat.POLICY_CONVOLUTION:
+        if self.POLICY_HEAD == NetworkFormat.POLICY_CONVOLUTION:
             conv_pol = self.conv_block_v2(flow, filter_size=3, output_channels=self.RESIDUAL_FILTERS)
             conv_pol2 = tf.keras.layers.Conv2D(80, 3, use_bias=True, padding='same', kernel_initializer='glorot_normal', kernel_regularizer=self.l2reg, bias_regularizer=self.l2reg, data_format='channels_first')(conv_pol)
             h_fc1 = ApplyPolicyMap()(conv_pol2)
-        elif self.POLICY_HEAD == pb.NetworkFormat.POLICY_CLASSICAL:
+        elif self.POLICY_HEAD == NetworkFormat.POLICY_CLASSICAL:
             conv_pol = self.conv_block_v2(flow, filter_size=1, output_channels=self.policy_channels)
             h_conv_pol_flat = tf.keras.layers.Flatten()(conv_pol)
             h_fc1 = tf.keras.layers.Dense(1858, kernel_initializer='glorot_normal', kernel_regularizer=self.l2reg, bias_regularizer=self.l2reg)(h_conv_pol_flat)

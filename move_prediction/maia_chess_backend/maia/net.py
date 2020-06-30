@@ -4,7 +4,7 @@ import argparse
 import gzip
 import os
 import numpy as np
-import proto.net_pb2 as pb
+from .proto.net_pb2 import Net, NetworkFormat, Format
 
 LC0_MAJOR = 0
 LC0_MINOR = 21
@@ -14,22 +14,22 @@ WEIGHTS_MAGIC = 0x1c0
 
 class Net:
     def __init__(self,
-                 net=pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT,
-                 input=pb.NetworkFormat.INPUT_CLASSICAL_112_PLANE,
-                 value=pb.NetworkFormat.VALUE_CLASSICAL,
-                 policy=pb.NetworkFormat.POLICY_CLASSICAL):
+                 net=NetworkFormat.NETWORK_SE_WITH_HEADFORMAT,
+                 input=NetworkFormat.INPUT_CLASSICAL_112_PLANE,
+                 value=NetworkFormat.VALUE_CLASSICAL,
+                 policy=NetworkFormat.POLICY_CLASSICAL):
 
-        if net == pb.NetworkFormat.NETWORK_SE:
-            net = pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT
-        if net == pb.NetworkFormat.NETWORK_CLASSICAL:
-            net = pb.NetworkFormat.NETWORK_CLASSICAL_WITH_HEADFORMAT
+        if net == NetworkFormat.NETWORK_SE:
+            net = NetworkFormat.NETWORK_SE_WITH_HEADFORMAT
+        if net == NetworkFormat.NETWORK_CLASSICAL:
+            net = NetworkFormat.NETWORK_CLASSICAL_WITH_HEADFORMAT
 
-        self.pb = pb.Net()
+        self.pb = Net()
         self.pb.magic = WEIGHTS_MAGIC
         self.pb.min_version.major = LC0_MAJOR
         self.pb.min_version.minor = LC0_MINOR
         self.pb.min_version.patch = LC0_PATCH
-        self.pb.format.weights_encoding = pb.Format.LINEAR16
+        self.pb.format.weights_encoding = Format.LINEAR16
 
         self.weights = []
 
@@ -48,19 +48,19 @@ class Net:
         self.pb.format.network_format.value = value
 
         # OutputFormat is for search to know which kind of value the net returns.
-        if value == pb.NetworkFormat.VALUE_WDL:
-            self.pb.format.network_format.output = pb.NetworkFormat.OUTPUT_WDL
+        if value == NetworkFormat.VALUE_WDL:
+            self.pb.format.network_format.output = NetworkFormat.OUTPUT_WDL
         else:
-            self.pb.format.network_format.output = pb.NetworkFormat.OUTPUT_CLASSICAL
+            self.pb.format.network_format.output = NetworkFormat.OUTPUT_CLASSICAL
 
     def get_weight_amounts(self):
         value_weights = 8
         policy_weights = 6
         head_weights = value_weights + policy_weights
-        if self.pb.format.network_format.network == pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT:
+        if self.pb.format.network_format.network == NetworkFormat.NETWORK_SE_WITH_HEADFORMAT:
             # Batch norm gammas in head convolutions.
             head_weights += 2
-        if self.pb.format.network_format.network == pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT:
+        if self.pb.format.network_format.network == NetworkFormat.NETWORK_SE_WITH_HEADFORMAT:
             return {"input": 5, "residual": 14, "head": head_weights}
         else:
             return {"input": 4, "residual": 8, "head": head_weights}
@@ -112,7 +112,7 @@ class Net:
 
     def denorm_conv_block(self, convblock, weights):
         """Denormalize a convblock from protobuf"""
-        se = self.pb.format.network_format.network == pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT
+        se = self.pb.format.network_format.network == NetworkFormat.NETWORK_SE_WITH_HEADFORMAT
 
         if se:
             self.denorm_layer(convblock.bn_stddivs, weights)
@@ -133,7 +133,7 @@ class Net:
 
     def denorm_se_unit(self, convblock, weights):
         """Denormalize SE-unit from protobuf"""
-        se = self.pb.format.network_format.network == pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT
+        se = self.pb.format.network_format.network == NetworkFormat.NETWORK_SE_WITH_HEADFORMAT
 
         assert se
 
@@ -152,10 +152,10 @@ class Net:
         # Legacy .txt files are version 2, SE is version 3.
 
         version = 2
-        if self.pb.format.network_format.network == pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT:
+        if self.pb.format.network_format.network == NetworkFormat.NETWORK_SE_WITH_HEADFORMAT:
             version = 3
 
-        if self.pb.format.network_format.policy == pb.NetworkFormat.POLICY_CONVOLUTION:
+        if self.pb.format.network_format.policy == NetworkFormat.POLICY_CONVOLUTION:
             version = 4
 
         with gzip.open(filename, 'wb') as f:
@@ -180,7 +180,7 @@ class Net:
 
     def get_weights(self):
         """Returns the weights as floats per layer"""
-        se = self.pb.format.network_format.network == pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT
+        se = self.pb.format.network_format.network == NetworkFormat.NETWORK_SE_WITH_HEADFORMAT
         if self.weights == []:
             self.denorm_layer(self.pb.weights.ip2_val_b, self.weights)
             self.denorm_layer(self.pb.weights.ip2_val_w, self.weights)
@@ -188,7 +188,7 @@ class Net:
             self.denorm_layer(self.pb.weights.ip1_val_w, self.weights)
             self.denorm_conv_block(self.pb.weights.value, self.weights)
 
-            if self.pb.format.network_format.policy == pb.NetworkFormat.POLICY_CONVOLUTION:
+            if self.pb.format.network_format.policy == NetworkFormat.POLICY_CONVOLUTION:
                 self.denorm_plain_conv(self.pb.weights.policy, self.weights)
                 self.denorm_conv_block(self.pb.weights.policy1, self.weights)
             else:
@@ -232,14 +232,14 @@ class Net:
             self.pb = self.pb.FromString(f.read())
         # Populate policyFormat and valueFormat fields in old protobufs
         # without these fields.
-        if self.pb.format.network_format.network == pb.NetworkFormat.NETWORK_SE:
-            self.set_networkformat(pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT)
-            self.set_valueformat(pb.NetworkFormat.VALUE_CLASSICAL);
-            self.set_policyformat(pb.NetworkFormat.POLICY_CLASSICAL);
-        elif self.pb.format.network_format.network == pb.NetworkFormat.NETWORK_CLASSICAL:
-            self.set_networkformat(pb.NetworkFormat.NETWORK_CLASSICAL_WITH_HEADFORMAT)
-            self.set_valueformat(pb.NetworkFormat.VALUE_CLASSICAL);
-            self.set_policyformat(pb.NetworkFormat.POLICY_CLASSICAL);
+        if self.pb.format.network_format.network == NetworkFormat.NETWORK_SE:
+            self.set_networkformat(NetworkFormat.NETWORK_SE_WITH_HEADFORMAT)
+            self.set_valueformat(NetworkFormat.VALUE_CLASSICAL);
+            self.set_policyformat(NetworkFormat.POLICY_CLASSICAL);
+        elif self.pb.format.network_format.network == NetworkFormat.NETWORK_CLASSICAL:
+            self.set_networkformat(NetworkFormat.NETWORK_CLASSICAL_WITH_HEADFORMAT)
+            self.set_valueformat(NetworkFormat.VALUE_CLASSICAL);
+            self.set_policyformat(NetworkFormat.POLICY_CLASSICAL);
 
     def parse_txt(self, filename):
         weights = []
@@ -253,18 +253,18 @@ class Net:
                 weights.append(list(map(float, line.split(' '))))
 
         if version == 3:
-            self.set_networkformat(pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT)
+            self.set_networkformat(NetworkFormat.NETWORK_SE_WITH_HEADFORMAT)
 
         if version == 4:
-            self.set_networkformat(pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT)
-            self.set_policyformat(pb.NetworkFormat.POLICY_CONVOLUTION)
+            self.set_networkformat(NetworkFormat.NETWORK_SE_WITH_HEADFORMAT)
+            self.set_policyformat(NetworkFormat.POLICY_CONVOLUTION)
 
         self.fill_net(weights)
 
     def fill_net(self, weights):
         self.weights = []
         # Batchnorm gammas in ConvBlock?
-        se = self.pb.format.network_format.network == pb.NetworkFormat.NETWORK_SE_WITH_HEADFORMAT
+        se = self.pb.format.network_format.network == NetworkFormat.NETWORK_SE_WITH_HEADFORMAT
         gammas = se
 
         ws = self.get_weight_amounts()
@@ -275,14 +275,14 @@ class Net:
             raise ValueError("Inconsistent number of weights in the file")
         blocks //= ws['residual']
 
-        self.pb.format.weights_encoding = pb.Format.LINEAR16
+        self.pb.format.weights_encoding = Format.LINEAR16
         self.fill_layer(self.pb.weights.ip2_val_b, weights)
         self.fill_layer(self.pb.weights.ip2_val_w, weights)
         self.fill_layer(self.pb.weights.ip1_val_b, weights)
         self.fill_layer(self.pb.weights.ip1_val_w, weights)
         self.fill_conv_block(self.pb.weights.value, weights, gammas)
 
-        if self.pb.format.network_format.policy == pb.NetworkFormat.POLICY_CONVOLUTION:
+        if self.pb.format.network_format.policy == NetworkFormat.POLICY_CONVOLUTION:
             self.fill_plain_conv(self.pb.weights.policy, weights)
             self.fill_conv_block(self.pb.weights.policy1, weights, gammas)
         else:
