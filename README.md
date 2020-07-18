@@ -58,27 +58,21 @@ To create your own maia from a set of chess games in the PGN format:
 
 >>> IN PROGRESS
 
-## Credits
-
->>> IN PROGRESS
-
 ## Citation
 
 ```
-@article{mcilroyyoung2020maia,
+@inproceedings{mcilroyyoung2020maia,
   title={Aligning Superhuman AI with Human Behavior: Chess as a Model System},
   author={McIlroy-Young, Reid and  Sen, Siddhartha and Kleinberg, Jon and Anderson, Ashton},
   year={2020},
-   eprint={2006.01855},
-   archivePrefix={arXiv},
-   primaryClass={cs.AI}
+  booktitle={Proceedings of the 25th ACM SIGKDD international conference on Knowledge discovery and data mining}
 }
 ```
 
 ## License
 
->>> IN PROGRESS
+The software is available under the GPL License.
 
 ## Contact
 
->>> IN PROGRESS
+Please [open an issue](https://github.com/CSSLab/maia-chess/issues/new) or email [Reid McIlroy-Young](https://reidmcy.com/) to get in touch
