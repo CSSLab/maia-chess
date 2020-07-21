@@ -1,0 +1,31 @@
+%YAML 1.2
+---
+gpu: 1                                 # gpu id to process on
+
+dataset:
+  input_train: '/datadrive/pgns_ranged/1500/train/supervised-*'
+  input_test: '/datadrive/pgns_ranged/1500/test/supervised-*'
+
+training:
+    batch_size: 2048                   # training batch
+    test_steps: 2000                   # eval test set values after this many steps
+    train_avg_report_steps: 200        # training reports its average values after this many steps.
+    total_steps: 140000                # terminate after these steps
+    warmup_steps: 250                  # if global step is less than this, scale the current LR by ratio of global step to this value
+    checkpoint_steps: 10000          # optional frequency for checkpointing before finish
+    shuffle_size: 524288               # size of the shuffle buffer
+    lr_values:                         # list of learning rates
+        - 0.02
+        - 0.002
+        - 0.0005
+    lr_boundaries:                     # list of boundaries
+        - 100000
+        - 130000
+    policy_loss_weight: 1.0            # weight of policy loss
+    value_loss_weight: 1.0             # weight of value loss
+
+model:
+  filters: 64
+  residual_blocks: 6
+  se_ratio: 8
+...

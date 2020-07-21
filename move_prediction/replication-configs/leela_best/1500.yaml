@@ -1,0 +1,43 @@
+%YAML 1.2
+---
+gpu: 0                                 # gpu id to process on
+
+dataset:
+  input_train: '/datadrive/pgns_ranged/1500/train/supervised-*'
+  input_test: '/datadrive/pgns_ranged/1500/test/supervised-*'
+
+training:
+    precision: 'half'
+    batch_size: 1024
+    num_batch_splits: 1
+    test_steps: 2000
+    train_avg_report_steps: 50
+    total_steps: 400000
+    checkpoint_steps: 10000
+    shuffle_size: 250000
+    lr_values:
+        - 0.1
+        - 0.01
+        - 0.001
+        - 0.0001
+    lr_boundaries:
+        - 80000
+        - 200000
+        - 360000
+    policy_loss_weight: 1.0
+    value_loss_weight: 0.5
+    swa: True
+    swa_steps: 2000
+    swa_max_n: 8
+    warmup_steps: 100
+    num_test_positions: 40000
+    mask_legal_moves: true
+    renorm: true
+    renorm_max_r: 1.0
+    renorm_max_d: 0.0
+
+model:
+  filters: 320
+  residual_blocks: 24
+  se_ratio: 10
+...

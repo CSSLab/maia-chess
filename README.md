@@ -47,12 +47,26 @@ To create your own maia from a set of chess games in the PGN format:
    3. (optional) If you have multiple GPUS change the `gpu` filed to the one you are using
    4. (optional) You can also change all the other training parameters here, like the number of layers
 4. Run the training script `move_prediction/train_maia.py PATH_TO_CONFIG`
-5. (optional) You cna use tensorboard to watch the training progress, the logs are in `runs/CONFIG_BASENAME/`
+5. (optional) You can use tensorboard to watch the training progress, the logs are in `runs/CONFIG_BASENAME/`
 6. Once complete the final model will be in `models/CONFIG_BASENAME/` directory. It will be the one with the largest number
 
 ### Replication
 
->>> IN PROGRESS
+To train the models we present in the paper you need to download the raw files from Lichess then cut them into the training sets and process them into the training data format. This is a similar format to the general training instructions just with our specified data, so you will need to have ``trainingdata-tool` and `pgn-extract` on your PATH.
+
+Also note that running the scripts manually line by line might be necessary as they do not have any flow control logic. And that `move_prediction/replication-move_training_set.py` is where the main shuffling and games selection logic is.
+
+1. Download the games from [Lichess](https://database.lichess.org/) between January 2017 and November 2019 to `data/lichess_raw`
+2. Run `move_prediction/replication-generate_pgns.sh`
+3. Run `move_prediction/replication-make_leela_files.sh`
+4. Edit `move_prediction/maia_config.yml` and add the elo you want to train:
+   1. input_test : ../data/elo_ranges/${elo}/test
+   2. outputtrain : ../data/elo_ranges/${elo}/train
+5. Run the training script `move_prediction/train_maia.py PATH_TO_CONFIG`
+
+We also include some other (but not all) config files that we tested. Although, we still recommend using the final config `move_prediction/maia_config.yml`.
+
+If you wish to generate the testing set we used you can download the December 2019 data and run `move_prediction/replication-make_testing_pgns.sh`. The data is also avaible for download as a CSV [here](http://csslab.cs.toronto.edu/datasets/chess/kdd2020/10000_full_2019-12.csv.bz2)
 
 ### Blunder Prediction
 
