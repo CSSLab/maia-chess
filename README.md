@@ -4,7 +4,7 @@
 
 A collection of chess engines that play like humans, from ELO 1100 to 1900.
 
-![The accuracy of the different maias across ELO range](maia_lineplot.png)
+![The accuracy of the different maias across ELO range](images/all_lineplot.png)
 
 In this repo is our 9 final maia models saved as Leela Chess neural networks, and the code to create more and reproduce our results.
 
