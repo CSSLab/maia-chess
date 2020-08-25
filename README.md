@@ -70,7 +70,16 @@ If you wish to generate the testing set we used you can download the December 20
 
 ### Blunder Prediction
 
->>> IN PROGRESS
+To train the blunder prediction models follow these instructions:
+
+1. Setup your environment
+   1. (optional) Install the `conda` environment, [`maia_env.yml`](maia_env.yml)
+2. Make sure all the required packages are installed from `requirements.txt`
+3. Run `blunder_prediction/make_csvs.sh`
+   1. You will probably need to update the paths, and may want to change the targets or use a for loop
+4. Run `blunder_prediction/mmap_csv.py` on all the csv files
+5. Select a config from `blunder_prediction/configs` and update the paths
+6. Run `blunder_prediction/train_model.py CONFIG_PATH
 
 ## Citation
 

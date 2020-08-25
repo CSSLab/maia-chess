@@ -1,0 +1,33 @@
+%YAML 1.2
+---
+device: 1
+
+dataset:
+    input_train: /datadrive/mmaps/train/
+    input_test: /datadrive/mmaps/test/
+
+training:
+    lr_intial: 0.0002
+    lr_gamma: 0.1
+    lr_steps:
+        - 20000
+        - 1000000
+        - 1300000
+    batch_size: 2000
+    test_steps: 2000
+    total_steps: 1400000
+    test_size: 200
+
+model:
+    type: leela
+    inputs:
+        - cp_rel
+        - clock_percent
+        - move_ply
+        - opponent_elo
+        - active_elo
+    outputs:
+        - is_blunder_wr
+    channels: 64
+    blocks: 6
+...
