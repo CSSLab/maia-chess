@@ -24,7 +24,7 @@ When using the model in `UCI` mode add `nodes 1` when querying as that disables 
 
 ## Datasets
 
-As part of our analysis all the game on Lichess with stockfish analysis were processed into csv files. These can be found [here](http://csslab.cs.toronto.edu/datasets/chess/kdd2020/)
+As part of our analysis all the game on Lichess with stockfish analysis were processed into csv files. These can be found [here](http://csslab.cs.toronto.edu/datasets/#maia_kdd)
 
 ## Code
 
