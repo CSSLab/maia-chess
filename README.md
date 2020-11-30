@@ -1,12 +1,14 @@
 # Aligning Superhuman AI with Human Behavior: Chess as a Model System
 
-## [paper](https://arxiv.org/abs/2006.01855)/[code](https://github.com/CSSLab/maia-chess)/[lichess](https://lichess.org/team/maia-bots)
+## [website](https://maiachess.com)[paper](https://arxiv.org/abs/2006.01855)/[code](https://github.com/CSSLab/maia-chess)/[lichess](https://lichess.org/team/maia-bots)
 
 A collection of chess engines that play like humans, from ELO 1100 to 1900.
 
 ![The accuracy of the different maias across ELO range](images/all_lineplot.png)
 
 In this repo is our 9 final maia models saved as Leela Chess neural networks, and the code to create more and reproduce our results.
+
+Our [website](https://maiachess.com) has information about the project and team.
 
 You can also play against three of of our models on Lichess:
 
