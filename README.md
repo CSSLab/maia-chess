@@ -1,6 +1,6 @@
 # Aligning Superhuman AI with Human Behavior: Chess as a Model System
 
-## [website](https://maiachess.com)[paper](https://arxiv.org/abs/2006.01855)/[code](https://github.com/CSSLab/maia-chess)/[lichess](https://lichess.org/team/maia-bots)
+## [website](https://maiachess.com)/[paper](https://arxiv.org/abs/2006.01855)/[code](https://github.com/CSSLab/maia-chess)/[lichess](https://lichess.org/team/maia-bots)
 
 A collection of chess engines that play like humans, from ELO 1100 to 1900.
 
