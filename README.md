@@ -16,7 +16,7 @@ You can also play against three of of our models on Lichess:
 + [`maia5`](https://lichess.org/@/maia5) is targeting ELO 1500
 + [`maia9`](https://lichess.org/@/maia9) is targeting ELO 1900
 
-We also have a Lichess team, [_maia-bots_](https://lichess.org/team/maia-bots), that we will more bots to.
+We also have a Lichess team, [_maia-bots_](https://lichess.org/team/maia-bots), that we will add more bots to.
 
 ## Chess Engine
 
