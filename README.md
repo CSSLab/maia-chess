@@ -15,14 +15,58 @@ You can also play against three of of our models on Lichess:
 + [`maia1`](https://lichess.org/@/maia1) is targeting ELO 1100
 + [`maia5`](https://lichess.org/@/maia5) is targeting ELO 1500
 + [`maia9`](https://lichess.org/@/maia9) is targeting ELO 1900
++ [`MaiaMystery`](https://lichess.org/@/MaiaMystery) is for testing new versions of Maia
 
-We also have a Lichess team, [_maia-bots_](https://lichess.org/team/maia-bots), that we will more bots to.
+We also have a Lichess team, [_maia-bots_](https://lichess.org/team/maia-bots), that we will add more bots to.
 
-## Chess Engine
+## How to Run Maia
 
-The models (`.pb.gz` files) work like any other Leela weights file. So to use them download or compile [`lc0`](http://lczero.org). If the version of `lc0` does not support the weights we have the exact version [here](https://github.com/CSSLab/lc0_23) to compile.
+The Maias are not a full chess framework chess engines, they are just brains (weights) and require a body to work. So you need to load them with [`lc0`](http://lczero.org) and follow the instructions [_here_](http://lczero.org/play/quickstart). Then unlike most other engines you want to *disable* searching, a nodes limit of 1 is what we use. This looks like `go nodes 1` in UCI. Note also, the models are also stronger than the rating they are trained on since they make the _average_ move of a player at that rating.
 
-When using the model in `UCI` mode add `nodes 1` when querying as that disables the search.
+The links to download the models directly are:
+
+### Models with Lichess Bots
+
+|Targeted Rating | lichess name | link|
+|-----|-----|-----|
+|1100|[_maia1_](https://lichess.org/@/maia1)|[`maia-1100.pb.gz`](https://github.com/CSSLab/maia-chess/releases/download/v1.0/maia-1100.pb.gz)|
+|1500|[_maia5_](https://lichess.org/@/maia5)|[`maia-1500.pb.gz`](https://github.com/CSSLab/maia-chess/releases/download/v1.0/maia-1500.pb.gz)|
+|1900|[_maia9_](https://lichess.org/@/maia9)|[`maia-1900.pb.gz`](https://github.com/CSSLab/maia-chess/releases/download/v1.0/maia-1900.pb.gz)|
+
+The bots on Lichess use opening books that are still in development, since the models play the same move every time.
+
+### Other Models
+
+|Targeted Rating | link|
+|-----|-----|
+|1200|[`maia-1200.pb.gz`](https://github.com/CSSLab/maia-chess/releases/download/v1.0/maia-1200.pb.gz)|
+|1300|[`maia-1300.pb.gz`](https://github.com/CSSLab/maia-chess/releases/download/v1.0/maia-1300.pb.gz)|
+|1400|[`maia-1400.pb.gz`](https://github.com/CSSLab/maia-chess/releases/download/v1.0/maia-1400.pb.gz)|
+|1600|[`maia-1600.pb.gz`](https://github.com/CSSLab/maia-chess/releases/download/v1.0/maia-1600.pb.gz)|
+|1700|[`maia-1700.pb.gz`](https://github.com/CSSLab/maia-chess/releases/download/v1.0/maia-1700.pb.gz)|
+|1800|[`maia-1800.pb.gz`](https://github.com/CSSLab/maia-chess/releases/download/v1.0/maia-1800.pb.gz)|
+
+We also have all the models in the [`maia_weights`](https://github.com/CSSLab/maia-chess/tree/master/maia_weights) folder of the repo.
+
+### Example
+
+When running the models on the command line it should look like this:
+
+```
+:~/maia-chess$ lc0 --weights=model_files/maia-1100.pb.gz
+       _
+|   _ | |
+|_ |_ |_| v0.26.3 built Dec 18 2020
+go nodes 1
+Loading weights file from: model_files/maia-1100.pb.gz
+Creating backend [cudnn-auto]...
+Switching to [cudnn]...
+...
+info depth 1 seldepth 1 time 831 nodes 1 score cp 6 tbhits 0 pv e2e4
+bestmove e2e4
+```
+
+`move_prediction/maia_chess_backend` also has the `LeelaEngine` class that uses the config files `move_prediction/model_files/*/config.yaml` to wrap [`python-chess`](https://python-chess.readthedocs.io) and allow the models to be used in Python.
 
 ## Datasets
 
