@@ -1,0 +1,59 @@
+# YAML 1.2
+---
+abstract: |
+    "As artificial intelligence becomes increasingly intelligent---in some cases, achieving superhuman performance---there is growing potential for humans to learn from and collaborate with algorithms. However, the ways in which AI systems approach problems are often different from the ways people do, and thus may be uninterpretable and hard to learn from. A crucial step in bridging this gap between human and artificial intelligence is modeling the granular actions that constitute human behavior, rather than simply matching aggregate human performance.
+    We pursue this goal in a model system with a long history in artificial intelligence: chess. The aggregate performance of a chess player unfolds as they make decisions over the course of a game. The hundreds of millions of games played online by players at every skill level form a rich source of data in which these decisions, and their exact context, are recorded in minute detail. Applying existing chess engines to this data, including an open-source implementation of AlphaZero, we find that they do not predict human moves well.
+    We develop and introduce Maia, a customized version of Alpha-Zero trained on human chess games, that predicts human moves at a much higher accuracy than existing engines, and can achieve maximum accuracy when predicting decisions made by players at a specific skill level in a tuneable way. For a dual task of predicting whether a human will make a large mistake on the next move, we develop a deep neural network that significantly outperforms competitive baselines. Taken together, our results suggest that there is substantial promise in designing artificial intelligence systems with human collaboration in mind by first accurately modeling granular human decision-making. "
+authors:
+  -
+    affiliation: "Universiy of Toronto"
+    family-names: "McIlroy-Young"
+    given-names: Reid
+  -
+    affiliation: "Microsoft Research"
+    family-names: Sen
+    given-names: Siddhartha
+  -
+    affiliation: "Cornell University"
+    family-names: Kleinberg
+    given-names: Jon
+  -
+    affiliation: "Universiy of Toronto"
+    family-names: Anderson
+    given-names: Ashton
+cff-version: "1.2.0"
+date-released: 2020-08-23
+doi: "10.1145/3394486.3403219"
+license: "GPL-3.0"
+message: "If you use Maia, please cite the original paper"
+repository-code: "https://github.com/CSSLab/maia-chess"
+url: "https://maiachess.com"
+title: "Maia Chess"
+version: "1.0.0"
+preferred-citation:
+  type: article
+  authors:
+    -
+        affiliation: "Universiy of Toronto"
+        family-names: "McIlroy-Young"
+        given-names: Reid
+    -
+        affiliation: "Microsoft Research"
+        family-names: Sen
+        given-names: Siddhartha
+    -
+        affiliation: "Cornell University"
+        family-names: Kleinberg
+        given-names: Jon
+    -
+        affiliation: "Universiy of Toronto"
+        family-names: Anderson
+        given-names: Ashton
+  doi: "10.1145/3394486.3403219"
+  journal: "KDD '20: Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining"
+  month: 9
+  start: 1677
+  end: 1687
+  title: "Aligning Superhuman AI with Human Behavior: Chess as a Model System"
+  year: 2020
+...
