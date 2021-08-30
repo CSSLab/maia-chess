@@ -98,7 +98,7 @@ To create your own maia from a set of chess games in the PGN format:
 
 ### Replication
 
-To train the models we present in the paper you need to download the raw files from Lichess then cut them into the training sets and process them into the training data format. This is a similar format to the general training instructions just with our specified data, so you will need to have ``trainingdata-tool` and `pgn-extract` on your PATH.
+To train the models we present in the paper you need to download the raw files from Lichess then cut them into the training sets and process them into the training data format. This is a similar format to the general training instructions just with our specified data, so you will need to have `trainingdata-tool` and `pgn-extract` on your PATH.
 
 Also note that running the scripts manually line by line might be necessary as they do not have any flow control logic. And that `move_prediction/replication-move_training_set.py` is where the main shuffling and games selection logic is.
 
@@ -106,8 +106,8 @@ Also note that running the scripts manually line by line might be necessary as t
 2. Run `move_prediction/replication-generate_pgns.sh`
 3. Run `move_prediction/replication-make_leela_files.sh`
 4. Edit `move_prediction/maia_config.yml` and add the elo you want to train:
-   1. input_test : ../data/elo_ranges/${elo}/test
-   2. outputtrain : ../data/elo_ranges/${elo}/train
+   1. input_test : `../data/elo_ranges/${elo}/test`
+   2. output_train : `../data/elo_ranges/${elo}/train`
 5. Run the training script `move_prediction/train_maia.py PATH_TO_CONFIG`
 
 We also include some other (but not all) config files that we tested. Although, we still recommend using the final config `move_prediction/maia_config.yml`.
