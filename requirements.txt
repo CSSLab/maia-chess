@@ -6,3 +6,5 @@ tensorboard
 tensorflow
 protobuf
 tensorboardx
+seaborn
+matplotlib
