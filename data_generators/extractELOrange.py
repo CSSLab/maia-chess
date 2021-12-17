@@ -1,9 +1,12 @@
-import haibrid_chess_utils
+import sys
+sys.path.append("../move_prediction")
+
+import maia_chess_backend
 
 import argparse
 import bz2
 
-@haibrid_chess_utils.logged_main
+@maia_chess_backend.logged_main
 def main():
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('eloMin', type=int, help='min ELO')
@@ -19,7 +22,7 @@ def main():
     with bz2.open(args.output, 'wt') as f:
         for num_files, target in enumerate(sorted(args.targets)):
             print(f"{num_files} reading: {target}")
-            Games = haibrid_chess_utils.LightGamesFile(target, parseMoves = False)
+            Games = maia_chess_backend.LightGamesFile(target, parseMoves = False)
             for i, (dat, lines) in enumerate(Games):
                 try:
                     whiteELO = int(dat['WhiteElo'])
@@ -36,7 +39,7 @@ def main():
                     continue
                 else:
                     if args.remove_low_time:
-                        f.write(haibrid_chess_utils.remove_low_time(lines))
+                        f.write(maia_chess_backend.remove_low_time(lines))
                     else:
                         f.write(lines)
                     gamesWritten += 1
