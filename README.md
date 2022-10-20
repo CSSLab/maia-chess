@@ -112,7 +112,7 @@ Also note that running the scripts manually line by line might be necessary as t
 
 We also include some other (but not all) config files that we tested. Although, we still recommend using the final config `move_prediction/maia_config.yml`.
 
-If you wish to generate the testing set we used you can download the December 2019 data and run `move_prediction/replication-make_testing_pgns.sh`. The data is also avaible for download as a CSV [here](http://csslab.cs.toronto.edu/datasets/chess/kdd2020/10000_full_2019-12.csv.bz2)
+If you wish to generate the testing set we used you can download the December 2019 data and run `move_prediction/replication-make_testing_pgns.sh`. The data is also avaible for download as a CSV [here](http://csslab.cs.toronto.edu/datasets/chess/kdd2020/10000_full_2019-12.csv.bz2). The script for running models on the dataset is [`replication-run_model_on_csv.py`](move_prediction/replication-run_model_on_csv.py) and requires the `lc0` binary on the path.
 
 ### Blunder Prediction
 
