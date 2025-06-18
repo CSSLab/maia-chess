@@ -2,6 +2,13 @@
 
 ## [website](https://maiachess.com)/[paper](https://arxiv.org/abs/2006.01855)/[code](https://github.com/CSSLab/maia-chess)/[lichess](https://lichess.org/team/maia-bots)
 
+🆕♟️🤖🚀✨ **Maia-2 is now available!** The next generation of human-like chess AI with a unified model that coherently captures human play across skill levels.
+
+- 📄 **Paper@NeurIPS '24**: [Maia-2: A Unified Model for Human-AI Alignment in Chess](https://arxiv.org/abs/2409.20553)
+- 💻 **Code**: [Maia-2](https://github.com/CSSLab/maia2)
+
+---
+
 A collection of chess engines that play like humans, from ELO 1100 to 1900.
 
 ![The accuracy of the different maias across ELO range](images/all_lineplot.png)
@@ -129,12 +136,23 @@ To train the blunder prediction models follow these instructions:
 
 ## Citation
 
+Maia (this repo):
 ```
 @inproceedings{mcilroyyoung2020maia,
   title={Aligning Superhuman AI with Human Behavior: Chess as a Model System},
   author={McIlroy-Young, Reid and  Sen, Siddhartha and Kleinberg, Jon and Anderson, Ashton},
   year={2020},
   booktitle={Proceedings of the 25th ACM SIGKDD international conference on Knowledge discovery and data mining}
+}
+```
+[Maia-2](https://github.com/CSSLab/maia2):
+```
+@inproceedings{tang2024maia,
+       title={Maia-2: A Unified Model for Human-{AI} Alignment in Chess},
+       author={Zhenwei Tang and Difan Jiao and Reid McIlroy-Young and Jon Kleinberg and Siddhartha Sen and Ashton Anderson},
+       booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems},
+       year={2024},
+       url={https://openreview.net/forum?id=XWlkhRn14K}
 }
 ```
 
