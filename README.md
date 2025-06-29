@@ -60,12 +60,12 @@ We also have all the models in the [`maia_weights`](https://github.com/CSSLab/ma
 When running the models on the command line it should look like this:
 
 ```
-:~/maia-chess$ lc0 --weights=model_files/maia-1100.pb.gz
+:~/maia-chess$ lc0 --weights=maia_weights/maia-1100.pb.gz
        _
 |   _ | |
 |_ |_ |_| v0.26.3 built Dec 18 2020
 go nodes 1
-Loading weights file from: model_files/maia-1100.pb.gz
+Loading weights file from: maia_weights/maia-1100.pb.gz
 Creating backend [cudnn-auto]...
 Switching to [cudnn]...
 ...
@@ -73,7 +73,7 @@ info depth 1 seldepth 1 time 831 nodes 1 score cp 6 tbhits 0 pv e2e4
 bestmove e2e4
 ```
 
-`move_prediction/maia_chess_backend` also has the `LeelaEngine` class that uses the config files `move_prediction/model_files/*/config.yaml` to wrap [`python-chess`](https://python-chess.readthedocs.io) and allow the models to be used in Python.
+`move_prediction/maia_chess_backend` also has the `LeelaEngine` class that uses the config files `move_prediction/maia_weights/*/config.yaml` to wrap [`python-chess`](https://python-chess.readthedocs.io) and allow the models to be used in Python.
 
 ## Datasets
 
