@@ -83,6 +83,35 @@ bestmove e2e4
 
 `move_prediction/maia_chess_backend` also has the `LeelaEngine` class that uses the config files `move_prediction/model_files/*/config.yaml` to wrap [`python-chess`](https://python-chess.readthedocs.io) and allow the models to be used in Python.
 
+### Using Maia in a GUI or lichess-bot
+
+The node limit of 1 is what makes Maia human-like: with a real search the model plays far above its target rating. How to set it depends on where you run the engine.
+
+**Command line / plain UCI**: pass the limit directly.
+
+```
+lc0 --weights=maia-1100.pb.gz
+go nodes 1
+```
+
+**lichess-bot**: inside the engine's `uci_options` in `config.yml`, add a `go_commands` block with `nodes: 1`, so every `go` command is sent as `go nodes 1`:
+
+```yaml
+engine:
+  dir: .
+  name: lc0
+  protocol: uci
+  uci_options:
+    Threads: 1
+    # other lc0 options go here
+    go_commands:          # additional options passed to the UCI go command
+      nodes: 1            # search so many nodes only
+```
+
+Field names are for current lichess-bot (`go_commands` under `uci_options`, see the [example config](https://github.com/lichess-bot-devs/lichess-bot/blob/master/config.yml.default)) and can change between versions, so check that file for the version you run.
+
+**GUIs (Scid vs. PC, En Croissant, etc.)**: most GUIs hard-code infinite-time searches and do not expose a node limit per move, so they are a poor fit for Maia. If your GUI cannot send `go nodes 1`, drive lc0 through a wrapper instead - the `lichess-bot` configuration above, or the Python `LeelaEngine` class referenced above, both enforce the node limit for you.
+
 ## Datasets
 
 As part of our analysis all the game on Lichess with stockfish analysis were processed into csv files. These can be found [here](http://csslab.cs.toronto.edu/datasets/#maia_kdd)
