@@ -3,6 +3,15 @@ set -e
 
 max_procs=10
 
+# fail fast with a clear message if the required binaries are missing
+for tool in pgn-extract trainingdata-tool; do
+    if ! command -v $tool >/dev/null 2>&1; then
+        echo "Error: required tool '$tool' not found in PATH." >&2
+        echo "Install it (see URLs in the comments below) and add it to your PATH, then rerun." >&2
+        exit 1
+    fi
+done
+
 #sorry these are relative only
 #remove the $PWD to make work with absolute paths
 input_file=$PWD/$1
@@ -39,7 +48,7 @@ for data_type in "training" "validation"; do
         #using tool from:
         #https://github.com/DanielUranga/trainingdata-tool
         trainingdata-tool ../$p &
-        while [ `echo $(pgrep -c -P$$)` -gt $max_procs ]; do
+        while [ `jobs -p | wc -l` -gt $max_procs ]; do
             printf "waiting\r"
             sleep 1
         done
